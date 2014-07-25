@@ -440,7 +440,7 @@ var refreshContacts = function(){
 	list.forEach(function(l){
 		var html = '<tr>';
 		html += '<td>' + escapeHTML(l.label) + '</td>';
-		html += '<td>' + decorateAddress(l.address, {appendLabel:false}) + '</td>';
+		html += '<td><span class="coin-address">' + decorateAddress(l.address, {appendLabel:false}) + '</span></td>';
 		html += '<td><div class="btn-toolbar">';
 		html += '<div class="btn-group"><button class="btn btn-primary" onclick="$(\'#add-contacts-label\').val(\''+l.label+'\');$(\'#add-contacts-address\').val(\''+l.address+'\');"><span class="glyphicon glyphicon-pencil"></span> '+_('Edit')+'</button></div>';
 		html += '<div class="btn-group"><button class="btn btn-danger" onclick="Contacts.remove(\''+l.address+'\');refreshContacts();"><span class="glyphicon glyphicon-remove-sign"></span> '+_('Delete')+'</button></div>';
@@ -608,9 +608,9 @@ $(function(){
 			s: 0.8,
 			v: 1.0,
 		});
-		var html = '<div class="btn-group">';
-		html += '<button type="button" class="btn btn-default" style="cursor:pointer;" onclick="removeSavedSecret(\''+type+'\',\''+symbol+'\','+storageType+'Storage,\''+secret+'\');window.location.reload();"><span class="glyphicon glyphicon-remove"></span></button>';
-		html += '<button type="button" class="btn btn-default" style="color:white;background-color:'+rgb2css(rgb)+';" onclick="setLoginType(\''+type+'\');$(\'#secret\').val(\''+secret+'\');$(\'#login-form\').submit();">'+type+':'+addr+'</button>';
+		var html = '<div class="saved-secret-list-btn-group btn-group">';
+		html += '<button type="button" class="remove-saved-secret-btn btn btn-default" style="cursor:pointer; font-family:monospace;" onclick="removeSavedSecret(\''+type+'\',\''+symbol+'\','+storageType+'Storage,\''+secret+'\');window.location.reload();"><span class="glyphicon glyphicon-remove"></span></button>';
+		html += '<button type="button" class="saved-secret-list-btn btn btn-default" style="color:white;background-color:'+rgb2css(rgb)+';" onclick="setLoginType(\''+type+'\');$(\'#secret\').val(\''+secret+'\');$(\'#login-form\').submit();">'+type+':'+addr+'</button>';
 		html += '</div>';
 		$('#savedSecretList').append(html);
 	};
