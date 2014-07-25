@@ -487,13 +487,7 @@
 			<footer>
 				<p class="locale locale-en">Please support me by donations!</p>
 				<p class="locale locale-ja">寄付による支援をお願いします！</p>
-				<ul class="list-unstyled" style="margin-left:1em;">
-					<script type="text/javascript">
-						OfflineWallet.getSupportedSymbols().forEach(function(v){
-							document.write('<li>'+decorateAddress(DONATION_ADDRESSES[v], {appendLabel:false, linkPrefix:OfflineWallet.getSymbolLinkPrefix(v)})+'</li>');
-						});
-					</script>
-					<li></li>
+				<ul class="list-unstyled" id="donations-list" style="margin-left:1em;">
 				</ul>
 				<p>Copyright &copy; <a href="http://offlinewallet.info/">OfflineWallet.info</a> 2014. All rights reserved.<span class="pull-right">[ Hosted by <a href="https://pages.github.com/" class="link-new-window">GitHub Pages</a> | Powered by <a href="http://bitcore.io/" class="link-new-window">bitcore</a> | <a href="https://github.com/monatr/OfflineWallet/" class="link-new-window">GitHub Repository</a> ]</span></p>
 			</footer>
@@ -512,6 +506,14 @@
 		<script src="js/Contacts.js"></script>
 		<script src="js/index.js"></script>
 		<script src="js/bootstrap.min.js"></script>
+		<script>
+			$(function(){
+				$list = $('#donations-list');
+				OfflineWallet.getSupportedSymbols().forEach(function(v){
+					$list.append('<li>'+decorateAddress(DONATION_ADDRESSES[v], {appendLabel:false, linkPrefix:OfflineWallet.getSymbolLinkPrefix(v)})+'</li>');
+				});
+			});
+		</script>
 	</body>
 </html>
 
