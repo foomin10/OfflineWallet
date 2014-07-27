@@ -433,6 +433,11 @@ var addContacts = function(){
 	}
 }
 
+var discardContacts = function(){
+    $('#add-contacts-address').val('');
+    $('#add-contacts-label').val('');
+}
+
 var refreshContacts = function(){
 	// Render contact list.
 	var list = Contacts.list();
