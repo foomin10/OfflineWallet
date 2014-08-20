@@ -9,15 +9,6 @@
 		<!-- Load CSS. -->
 		<link href="css/index.css" rel="stylesheet">
 		
-		<!-- Load JavaScript library. -->
-		<script src="js/jquery-2.1.1.min.js"></script>
-		<script src="js/i18n.js"></script>
-		<script src="js/socket.io-0.9.16.min.js"></script>
-		<script src="js/bitcore-0.1.19.min.js"></script>
-		<script src="js/OfflineWallet.js"></script>
-		<script src="js/Contacts.js"></script>
-		<script src="js/index.js"></script>
-		
 		<!-- Load Bootstrap. -->
 		<link href="css/bootstrap.min.css" rel="stylesheet">
 		<!--[if lt IE 9]>
@@ -141,7 +132,7 @@
 						</li>
 					</ul>
 					<ul class="nav navbar-nav navbar-right only-after-login">
-						<li class="navbar-text"><span id="myaddr">monacoin:???</span></li>
+						<li class="navbar-text"><span id="myaddr" class="coin-address">monacoin:???</span></li>
 						<li class="navbar-text"><span id="balance-header">???</span> <span class="symbol text-symbol">MONA</span></li>
 						<li class=""><button type="button" class="btn btn-default navbar-btn" onclick="window.location.reload();"><span class="glyphicon glyphicon-log-out"></span>
 							<span class="locale locale-en">Logout</span>
@@ -439,19 +430,26 @@
 								<span class="locale locale-en">Register <small>or</small> Modify</span>
 								<span class="locale locale-ja">追加 <small>または</small> 修正</span>
 							</div>
-							<div class="panel-body"><form id="add-contacts-form" onsubmit="addContacts(); return false;"><div class="row">
-								<div class="col-lg-6"><label class="control-label">
-									<span class="locale locale-en">Label</span>
-									<span class="locale locale-ja">ラベル</span>
-								</label><div class="input-group"><span class="input-group-addon">label:</span><input type="text" class="form-control" placeholder="Tamami Wakiyama" id="add-contacts-label" value="" /></div></div>
-								<div class="col-lg-6"><label class="control-label">
-									<span class="locale locale-en">Address</span>
-									<span class="locale locale-ja">アドレス</span>
-								</label><div class="input-group"><span class="input-group-addon">monacoin:</span><input type="text" class="form-control input-address" placeholder="" id="add-contacts-address" value="" /></div></div>
-							</div><div class="" style="margin-top:20px;"><button type="submit" class="btn btn-default">
-								<span class="locale locale-en">Register <small>or</small> Modify</span>
-								<span class="locale locale-ja">追加 <small>または</small> 修正</span>
-							</button></div></form></div>
+							<div class="panel-body"><form id="add-contacts-form" onsubmit="addContacts(); return false;">
+								<div class="row">
+									<div class="col-lg-6"><div class="input-group">
+										<label class="input-group-addon" for="add-contacts-label"><span class="locale locale-en">Label</span><span class="locale locale-ja">ラベル</span></label><input type="text" class="form-control" placeholder="Tamami Wakiyama" id="add-contacts-label" value="" />
+									</div></div>
+									<div class="col-lg-6" style="margin-top:15px;"><div class="input-group">
+										<label class="input-group-addon coin-address" for="add-contacts-address">Monacoin</label><input type="text" class="form-control input-address coin-address" placeholder="" id="add-contacts-address" value="" />
+									</div></div>
+								</div>
+								<div class="" style="margin-top:15px;">
+									<button type="submit" class="btn btn-default">
+										<span class="locale locale-en">Register <small>or</small> Modify</span>
+										<span class="locale locale-ja">追加 <small>または</small> 修正</span>
+									</button>
+									<button class="btn btn-default" style="margin-left:15px;" onclick="discardContacts(); return false;">
+										<span class="locale locale-en">Discard</span>
+										<span class="locale locale-ja">破棄</span>
+									</button>
+								</div>
+							</form></div>
 						</div>
 						<!-- 登録済み一覧 -->
 						<div class="panel panel-default">
@@ -496,13 +494,7 @@
 			<footer>
 				<p class="locale locale-en">Please support me by donations!</p>
 				<p class="locale locale-ja">寄付による支援をお願いします！</p>
-				<ul class="list-unstyled" style="margin-left:1em;">
-					<script type="text/javascript">
-						OfflineWallet.getSupportedSymbols().forEach(function(v){
-							document.write('<li>'+decorateAddress(DONATION_ADDRESSES[v], {appendLabel:false, linkPrefix:OfflineWallet.getSymbolLinkPrefix(v)})+'</li>');
-						});
-					</script>
-					<li></li>
+				<ul class="list-unstyled" id="donations-list" style="margin-left:1em; font-family:monospace;">
 				</ul>
 				<p>Copyright &copy; <a href="http://offlinewallet.info/">OfflineWallet.info</a> 2014. All rights reserved.<span class="pull-right">[ Hosted by <a href="https://pages.github.com/" class="link-new-window">GitHub Pages</a> | Powered by <a href="http://bitcore.io/" class="link-new-window">bitcore</a> | <a href="https://github.com/monatr/OfflineWallet/" class="link-new-window">GitHub Repository</a> ]</span></p>
 			</footer>
@@ -512,7 +504,23 @@
 		=== End of main.
 		====================================================-->
 		
+		<!-- Load JavaScript library. -->
+		<script src="js/jquery-2.1.1.min.js"></script>
+		<script src="js/i18n.js"></script>
+		<script src="js/socket.io-0.9.16.min.js"></script>
+		<script src="js/bitcore-0.1.19.min.js"></script>
+		<script src="js/OfflineWallet.js"></script>
+		<script src="js/Contacts.js"></script>
+		<script src="js/index.js"></script>
 		<script src="js/bootstrap.min.js"></script>
+		<script>
+			$(function(){
+				$list = $('#donations-list');
+				OfflineWallet.getSupportedSymbols().forEach(function(v){
+					$list.append('<li>'+decorateAddress(DONATION_ADDRESSES[v], {appendLabel:false, linkPrefix:OfflineWallet.getSymbolLinkPrefix(v)})+'</li>');
+				});
+			});
+		</script>
 	</body>
 </html>
 
