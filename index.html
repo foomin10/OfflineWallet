@@ -132,7 +132,7 @@
 						</li>
 					</ul>
 					<ul class="nav navbar-nav navbar-right only-after-login">
-						<li class="navbar-text"><span id="myaddr" class="coin-address">monacoin:???</span></li>
+						<li class="navbar-text"><span class="myaddr coin-address">monacoin:???</span></li>
 						<li class="navbar-text"><span id="balance-header">???</span> <span class="symbol text-symbol">MONA</span></li>
 						<li class=""><button type="button" class="btn btn-default navbar-btn" onclick="window.location.reload();"><span class="glyphicon glyphicon-log-out"></span>
 							<span class="locale locale-en">Logout</span>
@@ -305,6 +305,16 @@
 											<td><span id="balance-unconfirm">???</span> <span class="symbol text-symbol">MONA</span></td>
 										</tr>
 									</table>
+								</div>
+							</div>
+							<div class="panel panel-default">
+								<div class="panel-heading">
+									<span class="locale locale-en">My address</span>
+									<span class="locale locale-ja">あなたのアドレス</span>
+								</div>
+								<div class="panel-body text-center">
+									<div id="qrcode"></div>
+									<div class="myaddr" style="font-size:80%;">monacoin:???</div>
 								</div>
 							</div>
 						</div> <!-- end of wallet-panel -->
@@ -506,13 +516,13 @@
 		
 		<!-- Load JavaScript library. -->
 		<script src="js/jquery-2.1.1.min.js"></script>
+		<script src="js/jquery.qrcode.min.js"></script>
 		<script src="js/i18n.js"></script>
-		<script src="js/socket.io-0.9.16.min.js"></script>
+		<script src="js/socket.io-1.1.0.min.js"></script>
 		<script src="js/bitcore-0.1.19.min.js"></script>
 		<script src="js/OfflineWallet.js"></script>
 		<script src="js/Contacts.js"></script>
 		<script src="js/index.js"></script>
-		<script src="js/bootstrap.min.js"></script>
 		<script>
 			$(function(){
 				$list = $('#donations-list');
